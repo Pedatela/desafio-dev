@@ -1,12 +1,11 @@
 const { Sequelize, Model } = require('sequelize')
-const moment = require('moment')
 class Transaction extends Model {
   static init(sequelize) {
     super.init(
       {
         transaction_type: Sequelize.STRING,
         occurrence_date: Sequelize.DATE,
-        value: Sequelize.INTEGER,
+        value: Sequelize.DOUBLE,
         cpf: Sequelize.STRING,
         card: Sequelize.STRING,
         store_owner: Sequelize.STRING,
@@ -17,11 +16,9 @@ class Transaction extends Model {
       }
     )
     this.addHook('beforeSave', async (transaction) => {
-        // console.log(transaction)
-        // if(transaction.value){
-        //     transaction.value = parseInt(transaction.value) / 100
-        // }
-        // transaction.occurrence_date = moment(`${transaction.occurrence_date} ${transaction.hour}`, 'YYYYMMDD HHmmss')
+        if(transaction.value){
+            transaction.value = parseInt(transaction.value) / 100
+        }
       })
     return this
   }

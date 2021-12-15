@@ -10,9 +10,9 @@ const TransactionController = require('./app/controllers/TransactionController')
 const routes = new Router();
 const upload = multer(multerConfig)
 
-routes.get('/files', TransactionController.index)
+routes.get('/transactions', TransactionController.index)
+routes.post('/transactions', upload.single('file'), TransactionController.store)
+routes.get('/transactions/:transactionId', TransactionController.show)
 
-
-routes.post('/files', upload.single('file'), TransactionController.store)
 
 module.exports = routes
