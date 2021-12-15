@@ -1,0 +1,28 @@
+version: "3"
+
+services: 
+    server:
+        build: ./server
+        command: npm start
+        restart: on-failure:10
+        ports: 
+            - "3333:3333"
+        volumes: 
+            - ./server:/usr/src/by_coders/server
+            - /usr/src/by_coders/server/node_modules
+        environment:
+            DB_HOST: postgres
+            DB_USER: postgres
+            DB_PASSWORD: mysecretpassword
+            DB_NAME: by_coders
+        depends_on: 
+            - postgres
+    postgres:
+        image: postgres:11
+        ports: 
+            - "5433:5432"
+        environment:
+            POSTGRES_PASSWORD: mysecretpassword
+            POSTGRES_USER: postgres
+        volumes: 
+            - ./postgres_data:/var/lib/postgresql/data
