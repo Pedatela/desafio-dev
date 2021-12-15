@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const Dictionary = require('../helpers/Dictionary')
 class FileController {
 
   async index(req, res) {
@@ -7,13 +7,15 @@ class FileController {
   }
 
   async store(req, res) {
-    console.log(req.file)
-    fs.readFile(req.file.path, 'utf8', function (err,data) {
-        if (err) {
-          return console.log(err);
+    let datas = fs.readFileSync(req.file.path, 'utf8') 
+    const lines = datas.split(/\r?\n/);
+    lines.forEach(line => {
+        if(line){
+            let a = Dictionary.parse(line)
+            
         }
-        console.log(data);
-      });
+    });
+       
     return res.json({msg: "TESTE"})
   }
 }
