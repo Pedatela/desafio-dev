@@ -12,7 +12,7 @@ const upload = multer(multerConfig)
 
 routes.get('/transactions', TransactionController.index)
 routes.post('/transactions', upload.single('file'), TransactionController.store)
-routes.get('/transactions/:transactionId', TransactionController.show)
+routes.get('/transaction/:store_name', TransactionController.show)
 
 
 module.exports = routes

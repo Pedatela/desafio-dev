@@ -2,15 +2,23 @@ const fs = require('fs');
 const moment = require('moment')
 const Transaction = require('../models/Transaction')
 const Dictionary = require('../helpers/Dictionary')
+
 class FileController {
   
   async index(req, res) {
-    const allTransaction = await Transaction.findAll()
-    return res.json({data: allTransaction})
+    const allTransaction = JSON.parse(JSON.stringify(await Transaction.findAll({attributes: ['id', 'store_owner', 'store_name']})))
+    const uniqueStore = Array.from(new Set(allTransaction.map(a => a.store_name)))
+    .map(store_name => {
+      return allTransaction.find(a => a.store_name === store_name)
+    })
+    return res.json({data: uniqueStore})
   }
 
   async show(req, res){
-    console.log()
+    const store_name = req.params.store_name
+    let allTransactionByStoreName = JSON.parse(JSON.stringify(await Transaction.findAll({where: {store_name}})))
+    allTransactionByStoreName = allTransactionByStoreName.map(trans=> Dictionary.returnTransactionDescription(trans))
+    res.json({data: allTransactionByStoreName})
   }
 
   async store(req, res) {
