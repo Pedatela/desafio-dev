@@ -56,12 +56,7 @@ class DictionaryHelper {
 
     parse(line){
         let parsedObj = {}
-        this.dictionary.forEach(element => {
-            parsedObj[element.type] = element.type === "value" ?  
-                parseInt(line.substring(element.start_characters - 1, element.end_characters) )/100 : 
-                line.substring(element.start_characters - 1, element.end_characters).replace(/\s+$/, '')
-        });
-        
+        this.dictionary.forEach(element => parsedObj[element.type] = line.substring(element.start_characters - 1, element.end_characters).replace(/\s+$/, ''));
         return parsedObj
     }
 }
