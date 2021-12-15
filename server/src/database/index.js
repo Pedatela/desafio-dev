@@ -1,8 +1,9 @@
  const Sequelize = require('sequelize');
  const databaseConfig = require('../config/database');
+ const Transaction = require('../app/models/Transaction')
 
 const models = [
-
+  Transaction
 ];
 
 class Database {

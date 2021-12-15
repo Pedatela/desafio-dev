@@ -4,15 +4,15 @@ const multerConfig = require('./config/multer');
 
 
 
-const FileController = require('./app/controllers/FileController')
+const TransactionController = require('./app/controllers/TransactionController')
 
 
 const routes = new Router();
 const upload = multer(multerConfig)
 
-routes.get('/files', FileController.index)
+routes.get('/files', TransactionController.index)
 
 
-routes.post('/files', upload.single('file'), FileController.store)
+routes.post('/files', upload.single('file'), TransactionController.store)
 
 module.exports = routes
