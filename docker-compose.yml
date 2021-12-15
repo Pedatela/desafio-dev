@@ -24,5 +24,3 @@ services:
         environment:
             POSTGRES_PASSWORD: mysecretpassword
             POSTGRES_USER: postgres
-        volumes: 
-            - ./postgres_data:/var/lib/postgresql/data
