@@ -6,7 +6,7 @@ export default {
   },
 
   getOneByStoreName(store_name) {
-    return api.get(`asset/${store_name}`)
+    return api.get(`transaction/${store_name}`)
   },
 
   create(file) {

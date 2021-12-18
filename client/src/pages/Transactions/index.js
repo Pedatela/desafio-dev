@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
+import { Link } from 'react-router-dom'
 // Styles
-import { Container } from './styles';
+import { Container, TableContainer } from './styles';
 // API
 import TransactionApi from '../../services/transaction';
 
@@ -34,22 +35,23 @@ function Transactions() {
       name: "Visualizar",
       selector: row => "Visualizar",
       sortable: false,
-      cell: (store) => (
+      cell: ({store_name}) => (
+        <Link to={ {pathname: `/transaction/details/${store_name}`}}>
           <div style={{ minWidth: 50, justifyContent: 'space-around', display: 'flex', flexDirection: 'row' }}>
-              <BsEye title={`Edit store ${store.store_name}`}  />
+            <BsEye title={`Visualizar loja ${store_name}`}  />
           </div>
+        </Link>
       )
   }
 
   ]
 
-
   const [transactions, setTransactions] = useState([])
   const [loadingTable, setLoadingTable] = useState(true);
+
   useEffect(() => {
     TransactionApi.getAll()
       .then(({ data }) => {
-        console.log(data)
         setTransactions(data.data)
         setLoadingTable(false)
       })
@@ -59,16 +61,17 @@ function Transactions() {
   return (
       <Container>
           <h2>Lista de Lojas</h2>
-          <DataTable
-            noHeader
-            pointerOnHover
-            highlightOnHover
-            data={transactions}
-            columns={tableColumns}
-            progressPending={loadingTable}
-            noDataComponent="Não tem dados"
-        />
-
+          <TableContainer >
+            <DataTable
+              noHeader
+              pointerOnHover
+              highlightOnHover
+              data={transactions}
+              columns={tableColumns}
+              progressPending={loadingTable}
+              noDataComponent="Não tem dados"
+          />
+          </TableContainer>
       </Container>
   );
 }
