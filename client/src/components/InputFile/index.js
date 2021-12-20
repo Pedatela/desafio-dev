@@ -15,7 +15,7 @@ import {GrDocumentTxt} from "react-icons/gr";
 
 
 
-function InputFile() {
+function InputFile({setTransactions}) {
 
     const fileInput = useRef(null)
 
@@ -26,6 +26,8 @@ function InputFile() {
             formData.append('file', e.target.files[0])
             const { data } = await TransactionApi.create(formData)
             toast.success(data.msg)
+            const { data: allData } = await TransactionApi.getAll()
+            setTransactions(allData.data)
             
         } catch (error) {
             toast.error("Erro Interno")

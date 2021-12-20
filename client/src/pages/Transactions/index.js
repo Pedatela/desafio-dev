@@ -63,7 +63,7 @@ function Transactions() {
       <Container>
           <Header>
             <h2>Lista de Lojas</h2>
-            <InputFile />
+            <InputFile setTransactions={setTransactions} />
           </Header>
           <TableContainer >
             <DataTable
