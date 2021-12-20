@@ -79,3 +79,11 @@ export const Value = styled.div`
 export const ValueTotal = styled.div`
     color: ${props => props.total < 0  ? "#f43a68" : "#7cc372"};
 `;
+
+export const Route = styled.div `
+    margin-top: 30px;
+    font-size: 30px;
+    a{
+        color: #7cc372;
+    }
+`;

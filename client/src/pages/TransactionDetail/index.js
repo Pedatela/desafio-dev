@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom'
+
 
 import 
   { Container, 
@@ -10,7 +12,8 @@ import
   Icon, 
   Description, 
   Value, 
-  ValueTotal } from './styles';
+  ValueTotal, 
+  Route } from './styles';
 
 // Icon
 import { BsCreditCardFill } from "react-icons/bs";
@@ -168,7 +171,11 @@ function TransactionDetail({match: router}) {
           </CardContent>
         </Card>
       </LastFinancialTransactions>
-
+      <Route>
+        <Link to={ {pathname: `/transactions`}}>
+          Voltar para a tela de transação
+        </Link>
+      </Route>
     </Container>
   );
 }
