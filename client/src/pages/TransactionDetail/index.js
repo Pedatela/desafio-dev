@@ -71,8 +71,8 @@ function TransactionDetail({match: router}) {
           <CardHeader>Últimas transações</CardHeader>
           <CardContent>
             <ul>
-              {transactions.map((transaction) => (
-                <TransactionList length={transactions.length}>
+              {transactions.map((transaction, index) => (
+                <TransactionList key={index} length={transactions.length}>
                   <Icon>
                     <span>{ChangeIcon(transaction.description)}</span>
                     </Icon>

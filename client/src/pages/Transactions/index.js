@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 
 import { Link } from 'react-router-dom'
 // Styles
-import { Container, TableContainer } from './styles';
+import { Container, TableContainer, Header } from './styles';
 // API
 import TransactionApi from '../../services/transaction';
 
 // Components
 import DataTable from 'react-data-table-component'
+import InputFile from '../../components/InputFile';
 
 // Icons
 import { BsEye } from "react-icons/bs";
@@ -60,7 +61,10 @@ function Transactions() {
 
   return (
       <Container>
-          <h2>Lista de Lojas</h2>
+          <Header>
+            <h2>Lista de Lojas</h2>
+            <InputFile />
+          </Header>
           <TableContainer >
             <DataTable
               noHeader

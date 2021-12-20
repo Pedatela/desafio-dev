@@ -6,16 +6,17 @@ export const Container = styled.div`
     max-width: 1200px;
     margin: 0 auto;
     align-text:center;
-    h1{
-        margin-bottom: 40px;
-    }
+`;
+export const Header = styled.div`
+    display:flex;
+    justify-content: space-between;
 `;
 
 export const TableContainer = styled.div`
     color: white;
     overflow: hidden;
     padding: 32px 0;
-    margin: 48px auto 0;
+    margin: auto 0;
     max-width: 1200px;
     font-family: Quicksand, arial, sans-serif;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
