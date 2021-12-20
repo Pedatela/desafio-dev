@@ -22,18 +22,84 @@ import { FaReceipt } from "react-icons/fa"
 // API
 import TransactionApi from '../../services/transaction';
 
+// Charts
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 function TransactionDetail({match: router}) {
   const [transactions, setTransactions] = useState([])
+  let [totalPositive, setTotalPositive] = useState(0)
+  let [totalNegative, setTotalNegative] = useState(0)
   const [total, setTotal] = useState(0)
+
 
   useEffect(() => {
     TransactionApi.getOneByStoreName(router.params.store_name)
     .then(({ data }) => {
-      const total = data.data.reduce((sum, {value, business_transaction_type}) => business_transaction_type === "Saída" ? sum - value : sum + value, 0)
+      const total = data.data.reduce((sum, {value, business_transaction_type}) => {
+      if( business_transaction_type === "Saída"){
+          setTotalNegative(totalNegative+=value)
+          return sum - value
+        }else{
+          setTotalPositive(totalPositive+=value)
+          return sum + value
+        }
+      },0)
       setTotal(parseFloat(total).toFixed(2))
       setTransactions(data.data)
     })
   }, [router.params.store_name])
+
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Balanço',
+      },
+    }
+  }
+
+  const labels = ['Total'];
+
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Saída',
+        data: [totalNegative],
+        backgroundColor: '#F43A68',
+      },
+      {
+        label: 'Entrada',
+        data: [totalPositive],
+        backgroundColor: '#84C77A',
+      },
+    ],
+  };
 
 
   const ChangeIcon = (business_transaction_type) =>{
@@ -62,7 +128,9 @@ function TransactionDetail({match: router}) {
     <Container>
       <Chart>
         <Card>
-          <CardHeader>Gráfico</CardHeader>
+          <CardHeader>
+            <Bar options={options} data={data} />
+          </CardHeader>
         </Card>
       </Chart>
        
