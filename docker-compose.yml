@@ -38,3 +38,4 @@ services:
         environment:
             POSTGRES_PASSWORD: mysecretpassword
             POSTGRES_USER: postgres
+            POSTGRES_DB: by_coders
